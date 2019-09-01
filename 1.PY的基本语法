@@ -1,0 +1,507 @@
+print("Hello Python world!\n")
+
+message="这是测试"        #打印字符串测试
+print(message)
+
+name='da Jiang'
+print("\n"+name.title())  #首字母大写
+print(name.upper())       #全字母大写
+print(name.lower())       #全字母小写
+
+first_name="DA"
+last_name="GIANG"
+full_name=first_name+' '+last_name  #拼接字符串
+print(full_name+"\n")  
+
+
+lang="abc  "             #带空格字符串
+print(lang)
+print (lang.rstrip())    #要确保字符串末尾没有空白，可使用方法rstrip()
+print(lang.lstrip())	 #以剔除字符串开头的空白
+print(lang.strip())  	 #剔除字符串两端的空白
+
+print(3/2)
+print(5*6)
+print(5**6)			#  ** 两个星号表示乘方运算
+print(1+2)
+print(1-2)
+
+
+age=23
+message="happy "+ str(age)+"rd birthday"           # 采用 str（）将变量转换为字符串
+print(message)             
+
+
+import this     # Python 之禅--内部的基本编程禅语
+print("\n")
+
+
+# 下面学习列表
+# 在Python中，使用方括号[] 来表示列表，并用,分隔其中的元素
+
+bicycles=['atrek','bicle','calling','databe']
+print(bicycles)
+
+# 访问列表元素
+bicycles=['atrek','bicle','calling','databe']
+print(bicycles[0])
+print(bicycles[0].title())
+print(bicycles[-1].title())  #【-1】表示倒数第一个元素。【-2】【-3】依次类推
+# 使用列表中的各个值
+message="my first bicle was a "+bicycles[2].title()+"."
+print(message)
+
+# 修改列表的元素
+motorcycles=['ahonda','byamaha','csuck']
+print(motorcycles)
+
+motorcycles[0]='achange'
+print(motorcycles)
+
+#在列表中添加元素 
+	 #append() 插入元素到末尾
+motorcycles.append('ducalti')   #append() 插入元素到末尾
+print(motorcycles)
+
+motorcycles=[]
+motorcycles.append('honda')
+motorcycles.append('yamaha')
+motorcycles.append('suzuki')
+print (motorcycles)
+	# insert()  在列表中任意位置插入新元素
+
+motorcycles.insert(0,'ducati')  # insert()  在列表中任意位置插入新元素
+print(motorcycles)
+
+# 从列表中删除元素
+	#用del 语句删除元素
+
+del motorcycles[0]    # 使用del 删除了列表motorcycles 中的第一个元素——'honda' ：
+print(motorcycles)
+del motorcycles[2]    # 使用del 语句将值从列表中删除后，你就无法再访问它了
+print(motorcycles)
+	#使用pop（）删除元素
+motorcycles=['hoda','bci','cai']
+print(motorcycles)
+
+poped_motocycle=motorcycles.pop() #方法pop() 可删除列表末尾的元素，并让你能够接着使用它3
+print(motorcycles)
+print(poped_motocycle)
+  
+motorcycles=['hoda','bci','cai']
+first_owend=motorcycles.pop(0)     # pop()可弹出任意位置的元素
+print("the first motorcycles I owend was a "+ first_owend.title()+".")
+	
+	# 根据值删除元素  remove（）
+
+motorcycles=['hoda','bci','cai','doga']
+print(motorcycles)
+motorcycles.remove('bci')      #remove（）删除列表固定值的元素
+print(motorcycles)
+
+print("\n\n")
+motorcycles=['hoda','bci','cai','doga']
+too_expensive='bci'
+motorcycles.remove('bci')
+print(motorcycles)
+print("\nA "+too_expensive.title()+" is too expensive for me.\n")
+
+# 使用sort()对列表进行永久性排序,
+cars=['bmw','audi','toyoa','subaru']  
+cars.sort()         #按照字母排序
+print(cars)
+
+cars.sort(reverse=True)    #按照字母相反排序 必须是：True
+print(cars)
+
+# sorted() 对列表进行临时排序，同时以特定顺序呈现他们，不改变原来的排序
+cars=['bmw','audi','toyoa','subaru']
+print ("here is the original list:")
+print(cars)
+print("\nhere is the sorted list:")
+print(sorted(cars))
+print("\nhere is the original list again：")
+print(cars)
+
+# 倒着打印列表
+
+cars.reverse()  # reverse() 不是指按与字母顺序相反的顺序排列列表元素，而只是反转列表元素的排列顺序
+print(cars) 
+
+#确定列表的长度
+
+print(len(cars))  #函数len() 可快速获悉列表的长度
+
+# 遍历列表   
+
+magicias=['alice','david','carolina']
+for wor in magicias:  #for循环 
+	print(wor)
+	print(wor.title() + ", that was a great trick!")
+	print("I can't wait to see your next trick, " +wor.title()+ ".\n")
+
+# 创建数值列表
+    #range() 	生成一系列的数字
+for value in range(1,5):  # range 生成打印1-4的数字。
+   print(value)
+  
+  # range() 创建数字列表，和list()搭配
+number=list(range(1,6))
+print(number)
+  
+
+even_number=list(range(2,11,2)) # rang()可指定步长
+print(even_number)
+
+# 对数字列表进行简单的统计计算
+digits=[1,2,3,4,5,6,7,8,9,0]
+print(min(digits)) #最小值
+print(max(digits)) #最大值
+print(sum(digits)) #求和
+
+# 列表解析
+square=[value**2  for value in range(1,25)]
+print(square)
+
+# 使用列表的一部分
+  #切片 
+players=['ass','bcc','cdd','dfff','fee']
+print(players[0:3])
+print(players[:3])
+print(players[2:3])
+print(players[2:])
+	#遍历切片
+players=['ass','bcc','cdd','dfff','fee']
+for player in players[:3]:
+	print(player)
+print('\n')
+
+  # 定义元组： 元组使用圆括号（）来标识。定义元组后，就可以使用索引来访问元素。
+
+dimensions=(200,50)
+print(dimensions[0])
+print(dimensions[1])
+
+#修改元组  是禁止的。
+#  dimensions[0]=100
+
+#遍历元组中的所有值
+dimensions=(10,5)
+for dim in dimensions:
+	print(dim)
+
+# 给存储元组的变量赋值。
+dimensions=(2,3)
+print("original dimensions: ")
+for dimen in dimensions:
+    print(dimen)
+	
+dimensions=(200,300)
+print("\nModified dimensions:")
+for dimen in dimensions:
+	print(dimen)
+
+#if 语句
+
+cars=['audi','bmw','subaru','toyoa']
+for car in cars:
+    if car == 'bmw':
+        print(car.upper())
+    else:
+    	print(car.title())
+ 
+# 布尔表达式
+game_atcive=True
+can_edit=False
+
+#简单的if-elif-else 语句
+age=12
+if age<4:
+	print("your cost 0")
+elif age<=12:
+	print("sb")
+else:
+	print("goog")
+print('\n')
+
+
+#下面学习字典。
+
+#基本字典
+alien_0={'color':'green','points':5}
+print(alien_0['color'])
+print(alien_0['points'])
+
+#为字典添加键-值 对
+
+print(alien_0)
+alien_0['x_position']=0
+alien_0['y_position']=25
+print(alien_0)
+
+#创建空字典
+alien_0={}
+alien_0['color']='green'
+alien_0['points']=5
+print(alien_0)
+
+#修改字典中的值
+alien_0['color']='yellow'
+print(alien_0)
+
+#删除键-值对
+alien_0={'color':'green','points':5}
+print(alien_0)
+del alien_0['points']
+print(alien_0)
+
+#遍历字典
+
+user_0={
+	'username':'efemi',
+	'first':'enrico',
+	'last':'fermi',
+}
+for key,value in user_0.items(): #items() 它返回一个键—值对列表
+	print("\nkey："+ key)
+	print("value: "+value)
+	
+# 遍历字典中的所有键  keys（）
+favorite_languages={
+	'jen': 'python',
+	'sarah': 'c',
+	'edward': 'ruby',
+	'phil': 'python',
+}
+
+for name in favorite_languages.keys():
+	print(name.title())
+
+# 按顺序遍历字典中的所有键
+
+favorite_languages = {
+	'jen': 'python',
+	'sarah': 'c',
+	'edward': 'ruby',
+	'phil': 'python',
+}
+for name in sorted(favorite_languages.keys()):
+	print("\n"+name.title())
+
+#遍历字典中的所有值 values()
+
+favorite_languages = {
+	'jen': 'python',
+	'sarah': 'c',
+	'edward': 'ruby',
+	'phil': 'python',
+}
+print("The following languages have been mentioned:")
+for lang in favorite_languages.values():
+	print(lang.title())
+# 利用set()排除相同值
+favorite_languages = {
+'jen': 'python',
+'sarah': 'c',
+'edward': 'ruby',
+'phil': 'python',
+}
+print("The following languages have been mentioned:")
+for lang in set(favorite_languages.values()): #set()
+	print(lang.title())
+	
+#嵌套。将字典存储在列表中，或者将类表作为值存在字典中 
+
+	#将字典存放在列表中
+alien_0 = {'color': 'green', 'points': 5}
+alien_1 = {'color': 'yellow', 'points': 10}
+alien_2 = {'color': 'red', 'points': 15}
+
+aliens=[alien_0,alien_1,alien_2]     #将三个字典放入列表
+
+for alien in aliens:
+	print(alien)
+	
+	#在字典中存储列表
+pizza={
+	'crust':'thick',
+	'toppings':['mushro','extra']
+}
+print("You ordered a " + pizza['crust'] + "-crust pizza " +"with the following toppings:")
+for topping in pizza['toppings']:
+	print("\t" + topping)
+
+	#在字典中存储字典
+users = {
+	'aeinstein': {
+		'first': 'albert',
+		'last': 'einstein',
+		'location': 'princeton',
+	},
+	'mcurie': {
+		'first': 'marie',
+		'last': 'curie',
+		'location': 'paris',
+	},
+}
+for username, user_info in users.items():
+	print("\nUsername: " + username)
+	full_name = user_info['first'] + " " + user_info['last']
+	location = user_info['location']
+	print("\tFull name: " + full_name.title())
+	print("\tLocation: " + location.title())
+
+# 用户输入和while循环
+	#input()输入
+	
+#prompt = "If you tell us who you are, we can personalize the messages you see."
+#prompt += "\nWhat is your first name? "
+#name = input(prompt)
+#print("\nHello, " + name + "!")
+
+	#int()来获取数值的输入
+
+#height = input("How tall are you, in inches? ")  
+#height = int(height)          #int()将输入的字符串转为数字
+#if height >= 36:
+#	print("\nYou're tall enough to ride!")
+#else:
+#	print("\nYou'll be able to ride when you're a little older.")
+
+	# %求模运算符
+print("\n")
+print(7%3)
+print(5%1)
+print(111%22)
+
+#while 循环简介：for 循环用于针对集合中的每个元素都一个代码块，而while 循环不断地运行，直到指定的条件不满足为止。
+print("\n")
+current_number=1
+while current_number<=5:
+	print(current_number)
+	current_number+=1
+	
+# break 退出循环
+#prompt = "\nPlease enter the name of a city you have visited:"
+#prompt += "\n(Enter 'quit' when you are finished.) "
+#while True:
+#	city=input(prompt)
+#	if city=='quit':
+#		break
+#	else:
+#		print("I'd love to go to " + city.title() + "!")
+
+# 使用continue ，停止执行后续语句，返回到循环开头，重新进行条件判断。
+
+current_number=0
+while current_number<5:
+	current_number +=1
+	if current_number %2 ==0:
+		continue
+	print(current_number)
+
+# 学习函数
+
+def greet_user():
+	print("\n这个是简单函数\n")
+greet_user()
+
+def greet_user(username): #向函数传递信息
+	print('hello, '+username.title()+"!")
+greet_user('jen')
+
+# 参数传入的方式：位置实参和关键字实参（一对名称-值）
+
+def describe_pet(animal_type, pet_name):
+   
+	print("\nI have a " + animal_type + ".")
+	print("My " + animal_type + "'s name is " + pet_name.title() + ".")
+describe_pet('harry', 'hamster')  #位置实参，注意传参顺序
+
+def describe_pet(animal_type, pet_name):
+
+	print("\nI have a " + animal_type + ".")
+	print("My " + animal_type + "'s name is " + pet_name.title() + ".")
+describe_pet(animal_type='hamster', pet_name='harry')  #关键字实参
+
+#返回简单值
+
+def get_formatted_name(first_name, last_name):
+
+	full_name = first_name + ' ' + last_name
+	return full_name.title()                  #return 函数返回值
+musician = get_formatted_name('jimi', 'hendrix')
+print(musician)
+
+print("\n")
+
+# 创建和使用类
+class Dog():   #，在Python中，首字母大写的名称指的是类
+	def __init__ (self,name,age):    #初始化函数 __init__
+		self.name=name            #属性赋值
+		self.age=age
+	def sit(self):
+		print(self.name.title() + " is now sitting.")
+	def roll_over(self):
+		print(self.name.title() + " rolled over!")
+
+my_dog = Dog('willie', 6)
+print("My dog's name is " + my_dog.name.title() + ".")
+print("My dog is " + str(my_dog.age) + " years old.")
+my_dog.sit()
+my_dog.roll_over()
+
+print("\n")
+#继承
+
+#编写类时，并非总是要从空白开始。如果你要编写的类是另一个现成类的特殊版本，可使用继承 。一个类继承 另一个类时，
+#它将自动获得另一个类的所有属性和方法；原有的类称为父类 ，而新类称为子类 。子类继承了其父类的所有属性和方法，
+#同时还可以定义自己的属性和方法。
+
+# 子类的方法__init__()
+
+class Car():   #父类
+
+	def __init__(self, make, model, year):
+		self.make = make
+		self.model = model
+		self.year = year
+		self.odometer_reading = 0
+	def get_descriptive_name(self):
+		long_name = str(self.year) + ' ' + self.make + ' ' + self.model
+		return long_name.title()
+	def read_odometer(self):
+		print("This car has " + str(self.odometer_reading) + " miles on it.")
+	def update_odometer(self, mileage):
+		if mileage >= self.odometer_reading:
+			self.odometer_reading = mileage
+		else:
+			print("You can't roll back an odometer!")
+	def increment_odometer(self, miles):
+		self.odometer_reading += miles
+#创建子类时，父类必须包含在当前文件中，且位于子类前		
+class ElectricCar(Car):     #子类    定义子类时，必须在括号内指定父类的名称
+	def __init__(self,make ,model,year):  #方法__init__() 接受创建父类的实例所需的信息。
+		super().__init__(make,model,year) #的super() 是一个特殊函数，帮助Python将父类和子类关联起来。可调用父类的所有属性。
+		
+		self.battery_size=70  # 子类的新属性。
+		
+	def describe_battery(self):
+		print("This car has a " + str(self.battery_size) + "-kWh battery.")
+		
+my_tesla = ElectricCar('tesla', 'model s', 2016)
+print(my_tesla.get_descriptive_name())
+my_tesla.describe_battery()
+
+#导入类
+#from car import  Car
+
+#导入文件并逐行读取
+#filname='name.txt'              #文件存储路径及文件名
+#with open(filename) as file_object:  #打开文件
+#	for line in file_object:          
+#		print(line)
+	
+		#print（line.rstrip())   #删除空白换行
+	
+	
