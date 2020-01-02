@@ -3,12 +3,12 @@ print("Hello Python world!\n")
 message="这是测试"        #打印字符串测试
 print(message)
 
-name='da Jiang'
+name='daI Giang'
 print("\n"+name.title())  #首字母大写
 print(name.upper())       #全字母大写
 print(name.lower())       #全字母小写
 
-first_name="DA"
+first_name="DAI"
 last_name="GIANG"
 full_name=first_name+' '+last_name  #拼接字符串
 print(full_name+"\n")  
@@ -52,7 +52,7 @@ message="my first bicle was a "+bicycles[2].title()+"."
 print(message)
 
 # 修改列表的元素
-motorcycles=['ahonda','byamaha','csuck']
+motorcycles=['ahndidw','bymaene','cskliuc']
 print(motorcycles)
 
 motorcycles[0]='achange'
@@ -60,7 +60,7 @@ print(motorcycles)
 
 #在列表中添加元素 
 	 #append() 插入元素到末尾
-motorcycles.append('ducalti')   #append() 插入元素到末尾
+motorcycles.append('duafhuo')   #append() 插入元素到末尾
 print(motorcycles)
 
 motorcycles=[]
