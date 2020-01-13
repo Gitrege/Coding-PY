@@ -1,0 +1,114 @@
+
+# 纳税数据图示分析
+import matplotlib.pyplot as plt
+
+
+Baseline=5000 #免征税基线
+Cost=2000  #每月专项扣除
+Month=12  #每年度计税周期第几个月
+
+#Salary_Month=int(input("月薪："))
+
+def YearTax(Salary):  #年度每月纳税额
+	
+	def FiveOneSalary(Salary):  #按工资计算5险一金
+		ZHUFANG=Salary*0.08  	#住房公积金     8%
+		#养老保险  下线2200，上线 19014       8%
+		if 0<Salary<=2200:
+			YANGLAO=2200*0.08
+		elif 2200<Salary<=19014:
+			YANGLAO=Salary*0.08
+		else:
+			YANGLAO=19014*0.08
+		#医疗保险  下线 5585.4, 上线 27927     2%
+		if 0<Salary<=5585.4:
+			YLiao=5585.4*0.08
+		elif 5585.4<Salary<=27927:
+			YLiao=Salary*0.08
+		else:
+			YLiao=27927*0.08
+		#生育保险  下线2200，上线27927  个人缴纳=0
+
+		#工伤保险  下线2200，上线 19014 个人缴纳=0
+
+		#失业保险  下线2200     0.3%
+		Shiye=2200*0.003
+
+		Insurence=ZHUFANG+YANGLAO+YLiao+Shiye
+		#print (Insurence)
+		return Insurence
+
+	def FiveOneBase(Salary):  #按基线计算5险一金
+		ZHUFANG=Salary*0.08  	#住房公积金     8%
+		
+		#养老保险  下线2200，上线 19014       8%
+		YANGLAO=2200*0.08
+
+		#医疗保险  下线 5585.4, 上线 27927     2%
+		YLiao=5585.4*0.08
+
+		#生育保险  下线2200，上线27927  个人缴纳=0
+
+		#工伤保险  下线2200，上线 19014 个人缴纳=0
+
+		#失业保险  下线2200     0.3%
+		Shiye=2200*0.003
+
+		Insurence=ZHUFANG+YANGLAO+YLiao+Shiye
+		#print (Insurence)
+		return Insurence
+
+	def DangYueTax(YuJiaoYingNaShui): 	# 计算-累计预扣预缴应纳税所得额所在扣税区间及金额
+		if (0<=YuJiaoYingNaShui<=36000):
+			fee=0.03
+			KouChuShu=0
+		elif (36000<YuJiaoYingNaShui<=144000):
+			fee=0.1
+			KouChuShu=2520
+		elif(144000<YuJiaoYingNaShui<=300000):
+			fee=0.2
+			KouChuShu=16920
+		elif(300000<YuJiaoYingNaShui<=420000):
+			fee=0.25
+			KouChuShu=31920
+		elif(420000<YuJiaoYingNaShui<=660000):
+			fee=0.3
+			KouChuShu=52920
+		elif(660000<YuJiaoYingNaShui<=960000):
+			fee=0.35
+			KouChuShu=85920
+		else :
+			fee=0.45
+			KouChuShu=191920
+		DAT=YuJiaoYingNaShui*fee-KouChuShu
+		#print("当月应交税="+str(DAT))
+		return DAT
+	
+	i=1 #计数符号
+	MeiYueTax=[]  #将上个月的个税金额装进数组中
+	while i<=Month:
+		#累计预扣预缴应纳税额所得额，是按月累计（假设每月工资，五险一金，起征点，专项附加扣除都不变)
+		YuJiaoYingNaShuiQian=(Salary-FiveOneSalary(Salary)-Cost-Baseline)*i
+		if YuJiaoYingNaShuiQian<=0:
+			YuJiaoYingNaShuiQian=0
+		YI=sum(MeiYueTax)         #求和  计算累计已预扣预缴税额
+		Dyue=DangYueTax(YuJiaoYingNaShuiQian)-YI  #第i月个税金额
+		DyueZheng=round(Dyue,2) #取两位小数
+		MeiYueTax.append(DyueZheng) 
+		i=i+1
+		pass
+	#print (MeiYueTax)
+	return MeiYueTax
+
+#YearTax(Salary_Month)
+
+for S in range(10000,50000,10000):  #调整月薪范围，和增幅
+
+	x_values=[value for value in range (0,13,1)]   #x轴数据点（该年度第几个月）
+	XTTT=YearTax(S)    #将月薪S的12个月个税存储到数组XTTT中
+	XTTT.insert(0,0)   #在个税中补充第0月，用于画图好看
+	y_values=XTTT   #y轴数据点，个税金额
+	plt.text(12,YearTax(S)[11], str(S))   #每条线的标签
+	plt.plot(x_values,y_values,linewidth=2)
+
+plt.show()
