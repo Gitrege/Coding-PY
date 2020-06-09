@@ -1,0 +1,48 @@
+利用sublime调用cmd运行python。
+一、
+copy网上的知识点：https://www.cnblogs.com/cxfs/articles/10558867.html
+
+调用cmd运行python
+1.Tools --> Build System --> New Build System
+删除所有内容
+复制如下代码进去，保存为 Run-Python.sublime-build
+{
+
+      "cmd": ["python","-u","$file"],   
+      "selector": "source.python",
+      "file_regex": "^\\s*File \"(...*?)\", line ([0-9]*)",
+
+      "env": {"PYTHONIOENCODING": "utf-8"},
+       //执行完上面的命令就结束
+      // 下面的命令需要按Ctrl+Shift+b来运行
+
+      "variants":
+      [
+            {
+            "name":"Run-Python",
+            "shell": true,
+            "cmd": ["start","cmd","/c", "python $file &echo. & pause"],
+            //c是执行完命令后关闭cmd窗口,
+            // /k是执行完命令后不关闭cmd窗口。
+            // echo. 相当于输入一个回车
+            // pause命令使cmd窗口按任意键后才关闭
+            "working_dir": "${file_path}",
+            }
+      ]
+
+}
+4. "cmd": ["python","-u","$file"], 中的“python”应该调整为python.exe文件位置
+5. Ctrl + Shift + B, 选择 “Run-Python"
+
+二、调整运行上述环境的快捷键
+1.在sublime 选择perferences--key bindding, 将下面代码填进去
+[
+	{ "keys": ["ctrl+1"], "command": "build", "args": {"select": false} },
+]
+
+2.在sublime 选择Tools--Build system---选择上面的“Run-Python"
+
+
+
+
+
