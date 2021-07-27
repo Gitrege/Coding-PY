@@ -1,0 +1,19 @@
+import requests
+from bs4 import BeautifulSoup
+"""
+静态网页资源获取
+"""
+#定义URL
+url="http:// "
+R=requests.get(url)
+#R.content  静态网页资源如图片的url访问后可以直接下载
+soup=BeatifulSoup(r.text,"lxml")   #静态资源后H5页面进行格式文本话，lxml可以通过<tag>来查找具体内容了。
+#定义查找路径,H5页面下的资源路径，可以通过F12定位资源然后通过复制select路径,
+lujing="body>div.xx>div"
+s=soup.select(lujing)  # 这个结果是个数组，从数组里面找自己的内容就好了。
+
+"""
+动态资源网页获取
+"""
+#动态网页通过js额外加载资源无法直接爬取网页，需要通过F12找到Network下的资源加载路径，
+#通过筛选XHS动态资源，找到想要的内容，再通过herder头查看访问的host地址进行爬取，后面就和静态资源爬取一样了，通过request.get获取。
