@@ -1,12 +1,33 @@
 
-Salary=int(input('输入月薪:'))
-Month=int(input('本年度纳税第几个月:'))
-Baseline=5000
-JianMian=int(input("每月专项扣除:"))
-FiveInsu=int(input("五险一金（每月个人缴费）:"))
+"""
+累计预扣预缴应纳税所得额=本年度累计应发税前工资—累计个税起征点—累计五险一金个人部分—累计专项附加扣除
 
-# 定义一个计算每月 累计预扣预缴应纳税所得额的交税额
-def YueZongShui(LeiJiYuKou):
+本期应预扣预缴税额=(累计预扣预缴应纳税所得额×预扣率-速算扣除数)—累计已预扣预缴税额
+"""
+def FiveOneBase(Salary):  #计算5险一金	
+	""" 
+	住房公积金个人交纳：1100
+	养老保险个人缴纳：1621.44
+	医疗保险个人缴纳：440
+	事业保险个人缴纳：6.6
+	共计：3168.04
+	"""
+	#住房公积金     5%—12%
+	ZHUFANG=22000*0.05  			
+	#养老保险  下线2200，上线 19014    8%
+	YANGLAO=20268*0.08
+	#医疗保险  下线 5585.4, 上线 27927    2%
+	YLiao=22000*0.02
+	#失业保险  下线2200     0.3%
+	Shiye=2200*0.003
+	#生育保险  下线2200，上线27927  个人缴纳=0
+	#工伤保险  下线2200，上线 19014 个人缴纳=0
+	Insurence=ZHUFANG+YANGLAO+YLiao+Shiye
+	#print (Insurence)
+	return Insurence
+
+def YueZongShui(LeiJiYuKou):  # 累计预扣预缴应纳税所得额的交税额
+	# 定义一个计算每月 累计预扣预缴应纳税所得额的交税额
 	if (0<LeiJiYuKou<36000):
 		Koulv=0.03
 		KouChuShu=0
@@ -33,24 +54,51 @@ def YueZongShui(LeiJiYuKou):
 	else:
 		return ZongYing
 
-i=1 #i 用来做月份叠加计数,
-YiJiaoNaShui=[]  #用来存储每个月的缴纳税
+def MouTax(Salary,FiveOneBase,Baseline,JianMian): #返回12个月应预扣预缴税额
+	i=1 #i 用来做月份叠加计数,
+	YiJiaoNaShui=[]  #用来存储每个月的缴纳税
+	MonMoney=[] #用来存储每月到手的钱
+	#循环计算每个月应交税额
+	while i<=len(Salary):
+		#累计已预扣预缴税额
+		YJShui=sum(YiJiaoNaShui) 
+		# 累计预扣预缴应纳税所得额
+		LeiJiYuKouQian=sum(Salary[:i])-sum(Baseline[:i])-JianMian*i-sum(FiveOneBase[:i])
+		#本月缴纳税
+		BenYueTax=float('%0.2f' % (YueZongShui(LeiJiYuKouQian)-YJShui))
+		# 将本月的税存起来
+		YiJiaoNaShui.append(BenYueTax)
+		#本月到手钱，月薪-五险一金-税
+		BenYueMoney=((Salary[i-1])-BenYueTax-FiveOneBase[i-1])
+		MonMoney.append(BenYueMoney)
+		i=i+1
+		pass
+	return (YiJiaoNaShui,MonMoney)
+"""
+#  输入工资/五险一金/基础线/减免费用（可能每月不同）
+Money={
+	"Salary":[float(input("输入月工资："))]*12,
+	"FiveOneBase":[float(input("输入五险一金缴纳："))]*12,
+	"Baseline":[5000]*12,
+	"JianMian":float(input("输入每月减免："))
+}
+"""
+Money={
+	"Salary":[23200]*12,
+	"FiveOneBase":[3142]*12,
+	"Baseline":[5000]*12,
+	"JianMian":float(0)
+}
 
-#循环计算每个月应交税额
-while i<=Month:
-	#累计已预扣预缴税额
-	YJShui=sum(YiJiaoNaShui) 
+Res=MouTax(Salary=Money["Salary"],FiveOneBase=Money["FiveOneBase"],\
+		Baseline=Money["Baseline"],JianMian=Money["JianMian"])
 
-	# 累计预扣预缴应纳税所得额
-	LeiJiYuKouQian=(Salary-Baseline-JianMian-FiveInsu)*i 
-
-	#本月缴纳税
-	BenYue=YueZongShui(LeiJiYuKouQian)-YJShui 
-	# 将本月的税存起来
-	YiJiaoNaShui.append(BenYue) 
-	i=i+1
+NianTax=Res[0]
+DaoShouMoney=Res[1]
+for x in range(0,12):
+	print("第"+str(x+1)+"个月的应缴税："+"{:.2f}".format(NianTax[x]))
+	print("第"+str(x+2)+"个月的到手钱：{:.2f}".format(DaoShouMoney[x]))
 	pass
-i=1	
-for GESHUI in YiJiaoNaShui:
-	print("本年度第"+str(i)+"个月的个税:"+str(GESHUI))
-	i=i+1
+
+print("年税总和：{:.2f}".format(sum(NianTax)))
+print("年到手总和：{:.2f}".format(sum(DaoShouMoney)))
