@@ -17,3 +17,64 @@ folium.LayerControl().add_to(m)
 
 m.save("地图.html")
 webbrowser.open("地图.html")
+
+
+"""
+*计算两点距离*
+[https://www.cnblogs.com/osnosn/p/14505778.html]
+import math 
+#from math import radians,cos,sin,asin,sqrt,pi,atan,tan,atan2 
+# 这个算法和 geographiclib 算的几乎一样，相差<0.2米
+def distVincenty(lat1,lon1,lat2,lon2):
+    '精度更高的椭球计算,计算两个 WGS84 经纬度点的距离'
+    a=6378137.0       #vincentyConstantA(WGS84) ##单位:米
+    b=6356752.3142451 #vincentyConstantB(WGS84) ##单位:米
+    f=1/298.257223563 #vincentyConstantF(WGS84)
+    L = math.radians(lon2 - lon1)
+    U1 = math.atan((1 - f) *math.tan(math.radians(lat1)))
+    U2 = math.atan((1 - f) *math.tan(math.radians(lat2)))
+    sinU1 =math.sin(U1)
+    cosU1 =math.cos(U1)
+    sinU2 =math.sin(U2)
+    cosU2 =math.cos(U2)
+    lambda1 = L
+    lambdaP = 2 * math.pi
+    iterLimit = 20
+
+    sinLambda = 0.0
+    cosLambda = 0.0
+    sinSigma = 0.0
+    cosSigma = 0.0
+    sigma = 0.0
+    alpha = 0.0
+    cosSqAlpha = 0.0
+    cos2SigmaM = 0.0
+    C = 0.0
+    while (abs(lambda1 - lambdaP) > 1e-12 and --iterLimit > 0) :
+        sinLambda =math.sin(lambda1)
+        cosLambda =math.cos(lambda1)
+        sinSigma = math.sqrt((cosU2 * sinLambda) * (cosU2 * sinLambda) + (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda) * (cosU1 * sinU2 - sinU1 * cosU2 * cosLambda))
+        if (sinSigma == 0) :
+            return 0
+        cosSigma = sinU1 * sinU2 + cosU1 * cosU2 * cosLambda
+        sigma = math.atan2(sinSigma, cosSigma)
+        alpha = math.asin(cosU1 * cosU2 * sinLambda / sinSigma)
+        cosSqAlpha = math.cos(alpha) * math.cos(alpha)
+        cos2SigmaM = cosSigma - 2 * sinU1 * sinU2 / cosSqAlpha
+        C = f / 16 * cosSqAlpha * (4 + f * (4 - 3 * cosSqAlpha))
+        lambdaP = lambda1
+        lambda1 = L + (1 - C) * f * math.sin(alpha)* (sigma + C * sinSigma * (cos2SigmaM + C * cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM)))
+
+    if iterLimit == 0 :
+        return 0.0
+
+    uSq = cosSqAlpha * (a * a - b * b) / (b * b)
+    A = 1 + uSq / 16384 * (4096 + uSq * (-768 + uSq * (320 - 175 * uSq)))
+    B = uSq / 1024 * (256 + uSq * (-128 + uSq * (74 - 47 * uSq)))
+    deltaSigma = B * sinSigma * (cos2SigmaM + B / 4 * (cosSigma * (-1 + 2 * cos2SigmaM * cos2SigmaM) - B / 6 * cos2SigmaM * (-3 + 4 * sinSigma * sinSigma) * (-3 + 4 * cos2SigmaM * cos2SigmaM)))
+    s = b * A * (sigma - deltaSigma)
+    d = s  ##单位:米
+    return d
+s=distVincenty(12.3333,40,13,56)
+print(s)
+"""
