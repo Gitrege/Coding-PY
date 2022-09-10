@@ -9,9 +9,22 @@ R=requests.get(url)
 #R.content  静态网页资源如图片的url访问后可以直接下载
 soup=BeatifulSoup(r.text,"lxml")   #静态资源后H5页面进行格式文本话，lxml可以通过<tag>来查找具体内容了。
 #定义查找路径,H5页面下的资源路径，可以通过F12定位资源然后通过复制select路径,
-lujing="body>div.xx>div"
+lujing="body>div.xx>div"      # copy-selector 的路径
 s=soup.select(lujing)  # 这个结果是个数组，从数组里面找自己的内容就好了。
 
+"""
+# 下载图片（http)
+def download_img(img_url):
+	name ="E:\\dowload\\"+str(num)+".jpg"   #保存后名字
+#保存文件时候注意类型要匹配，如要保存的图片为jpg，则打开的文件的名称必须是jpg格式，否则会产生无效图片
+	req=urllib.request.Request(url=img_url,headers=headers)    # 使用urllib库的request函数，同时提高headers头定义来本地访问资源
+	conn = urllib.request.urlopen(req)                         # 使用urllib库的urlopen函数，下载资源
+	f = open(name,'wb')                                        # 打开本地存储路径name, 读写保存
+	f.write(conn.read())
+	f.close()
+	print("Pic"+" "+str(i)+" "+"Saved!") 
+	#time.sleep(1)
+"""
 """
 动态资源网页获取
 """
