@@ -1,0 +1,55 @@
+#易经算卦的方法，天地之数
+import random
+#抴蓍 
+DaYanzhishu=50   #大数为50
+Hundun=1   #混沌之数1
+num=50-Hundun  #天地为 49
+"""
+左手随机数0-49之间。
+但正常操作随机分配两堆，每一堆不可能在1、2、3 极少数上。
+因此随机数应该在左侧3以上，右侧也在3以上，留出左右极少数情况：
+则左侧应该在3-46之间，
+"""
+A=3  #左侧随机数起始值，不能太小
+def yLo (num):
+	s=0
+	while s<3:  #三变，循环3次
+		L=random.randint(A,num-A)    #左侧天
+		R=num-L                      #右侧地
+		R=R-1       #四营            #右侧数取出 人
+		#print(R)
+		R1=R%4                       #右侧 分四季，取余数
+		if R1==0:                    #余数为0，则余数为4，即为双润月
+			R1=4
+			R2=R//4-1                #余数为0，则剩余为商（即分四季的组数）
+			#print(R2)
+		else:
+			R2=R//4
+			#print(R2)
+		L1=L%4                       # 左侧分四季，与右侧同
+		if L1==0:
+			L1=4
+			L2=L//4-1
+			#print(L2)
+		else:
+			L2=L//4
+			#print(L2)
+
+		num=num-L1-R1-1             #剩下继续算 二变/三变， 1变之后44/40；2变之后40/36/32；三变之后36/32/28/24
+		#print(num)
+		s=s+1
+	oneyLo=L2+R2                     # 用来判断爻的6/7/8/9  2阴2阳
+	print(oneyLo)
+	return(oneyLo)
+"""
+	if oneyLo==6 or oneyLo==8:
+		print("——")
+	else:
+		print("—  —")
+"""
+GUA=[]  #卦数字
+for t in range(0,6):
+	GUA.append(yLo(num))
+	t=t+1
+GUA.reverse()
+print(GUL)   #自下而上画卦
